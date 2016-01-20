@@ -9,9 +9,9 @@ public class InputCreator {
 
     /**
      * An input dialog is shown which asks for a whole number
-     * @param message
-     * @param title
-     * @return
+     * @param message which will be displayed to the user
+     * @param title of the dialog window
+     * @return the integer that the user entered
      */
     public static int askForPositiveInteger(String message, String title) {
         String answer = JOptionPane.showInputDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
@@ -42,7 +42,7 @@ public class InputCreator {
             if(bigDecimal.signum() == -1) { // If the number is negative we throw an exception
                 throw new NumberFormatException("The number is negative");
             }
-            if(numberOfDecimals != null && bigDecimal.scale() > numberOfDecimals.intValue()) {
+            if(numberOfDecimals != null && bigDecimal.scale() > numberOfDecimals) {
                 throw new NumberFormatException("You entered " + bigDecimal.scale() + " decimals while the maximum is " + numberOfDecimals);
             }
             return bigDecimal;
