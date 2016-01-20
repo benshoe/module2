@@ -35,23 +35,20 @@ public class InterestCalculatorTest {
 	}
 
 	private int getPeriods() {
-		int periods = 0;
 		final String periodsAnswer = JOptionPane.showInputDialog(null, "How many periods would you like to calculate?", "Number of periods", JOptionPane.QUESTION_MESSAGE);
-		periods = Integer.valueOf(periodsAnswer).intValue();
+		int periods = Integer.valueOf(periodsAnswer).intValue();
 		return periods;
 	}
 
 	private BigDecimal getInterest() {
-		BigDecimal interest;
 		final String interestAnswer = JOptionPane.showInputDialog(null, "What is the rate of interest per period?", "Rate of interest", JOptionPane.QUESTION_MESSAGE);
-		interest = new BigDecimal(interestAnswer);
+		BigDecimal interest = new BigDecimal(interestAnswer);
 		return interest;
 	}
 
 	private BigDecimal getStartAmount() {
-		BigDecimal startAmount;
 		final String startAmountAnswer = JOptionPane.showInputDialog(null, "What is your start amount?", "Start amount", JOptionPane.QUESTION_MESSAGE);
-		startAmount = new BigDecimal(startAmountAnswer, MathContext.DECIMAL64);
+		BigDecimal startAmount = new BigDecimal(startAmountAnswer, MathContext.DECIMAL64);
 		return startAmount;
 	}
 }
