@@ -5,7 +5,10 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 /**
- * Created by ben on 20-01-16.
+ * This is the class to run and test the InterestCalculator
+ *
+ * @author Ben Schoen<ben.schoen@online.liverpool.ac.uk>
+ * @since 20 January 2016
  */
 public class InterestCalculatorTest {
 
@@ -20,6 +23,9 @@ public class InterestCalculatorTest {
 		interestCalculatorTest.run();
 	}
 
+    /**
+     * This method forces the Nimbus Look and Feel to be loaded
+     */
 	private static void setLookAndFeel() {
 		final LookAndFeelInfo[] installedLookAndFeels = UIManager.getInstalledLookAndFeels();
 		for(int i = installedLookAndFeels.length - 1; i >=0; i--) {
@@ -36,8 +42,8 @@ public class InterestCalculatorTest {
 
 	private void run() {
 
-        m_startAmount = InputCreator.askForPositiveDecimalNumber("What is your start amount?", "Start amount");
-        m_interest = InputCreator.askForPositiveDecimalNumber("What is the rate of interest per period?", "Rate of interest");
+        m_startAmount = InputCreator.askForPositiveDecimalNumber("What is your start amount?", "Start amount", new Integer("2"));
+        m_interest = InputCreator.askForPositiveDecimalNumber("What is the rate of interest per period?", "Rate of interest", null);
         m_periods = InputCreator.askForPositiveInteger( "How many periods would you like to calculate?", "Number of periods");
 
         InterestCalculator interestCalculator = new InterestCalculator();
@@ -50,6 +56,9 @@ public class InterestCalculatorTest {
 
 	}
 
+    /**
+     * A fixed result message used to report to the user
+     */
     private StringBuilder getResultMessage() {
         StringBuilder sb = new StringBuilder();
         sb.append("With a start amount of ");
