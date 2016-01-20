@@ -29,22 +29,21 @@ public class InterestCalculatorTest {
 	}
 
 	private void run() {
-		BigDecimal startAmount = new BigDecimal("10000");
-		BigDecimal interest = new BigDecimal("0.03875");
-		int periods = 5;
-		System.out.println( "362.2 - 362.6 = " + ( 362.2 - 362.6 ) );
+
+		//InterestCalculatorFrame frame = new InterestCalculatorFrame();
+		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//frame.setSize(400, 200);
+		//frame.setVisible(true);
+
+		doYourJob();
+	}
+
+	private void doYourJob() {
+		BigDecimal startAmount = getStartAmount();
+		BigDecimal interest = getInterest();
+		int periods = getPeriods();
 
 		InterestCalculator interestCalculator = new InterestCalculator();
-		//interestCalculator.setPeriods(periods);
-		//interestCalculator.setPrincipalAmount(startAmount);
-		//interestCalculator.setRateOfInterest(interest);
-		//BigDecimal totalAmount = interestCalculator.getTotalAmount();
-		//System.out.println("totalAmount = " + totalAmount);
-
-		startAmount = getStartAmount();
-		interest = getInterest();
-		periods = getPeriods();
-
 		interestCalculator.setPrincipalAmount(startAmount);
 		interestCalculator.setRateOfInterest(interest);
 		interestCalculator.setPeriods(periods);
