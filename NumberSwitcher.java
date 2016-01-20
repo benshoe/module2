@@ -40,31 +40,11 @@ public final class NumberSwitcher {
     }
 
     private void getFirstNumber() {
-        m_first = askForNumber("Please, input a first whole number.", "First number?");
+        m_first = InputCreator.askForPositiveInteger("Please, input a first whole number.", "First number?");
     }
 
     private void getSecondNumber() {
-        m_second = askForNumber("Please, input a second whole number.", "Second number?");
-    }
-
-    private int askForNumber(String message, String title) {
-        String answer = JOptionPane.showInputDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
-        try {
-            return Integer.parseInt(answer);
-        } catch (NumberFormatException e) {
-            if(answer == null) { // This is true when no answer is entered. If Ok is clicked without entering anything then answer is not null but an empty String ("")
-                String quitMessage = "You clicked on Cancel.\nWould you like to quit?";
-                int confirmDialog = JOptionPane.showConfirmDialog(null, quitMessage, "Are you sure?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-                if(confirmDialog == JOptionPane.YES_OPTION) {
-                    /* If the user clicks on 'Yes' when asked if the user wants to quit
-                        we stop the execution of the program. 0 means that execution was without problems */
-                    System.exit(0);
-                }
-            } else {
-                message = "The number you entered is not valid.\nPlease, try again entering a valid whole number.";
-            }
-            return askForNumber(message, title); // I recursively call this same method until a valid number is entered or the user quits the program
-        }
+        m_second = InputCreator.askForPositiveInteger("Please, input a second whole number.", "Second number?");
     }
 
     private void swapNumber() {

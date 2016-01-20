@@ -1,13 +1,19 @@
 import javax.swing.*;
 import javax.swing.UIManager.*;
 import java.math.*;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 /**
  * Created by ben on 20-01-16.
  */
 public class InterestCalculatorTest {
 
-	public static void main(String[] args) {
+    private BigDecimal m_startAmount;
+    private BigDecimal m_interest;
+    private int m_periods;
+
+    public static void main(String[] args) {
 		setLookAndFeel();
 
 		InterestCalculatorTest interestCalculatorTest = new InterestCalculatorTest();
@@ -30,41 +36,32 @@ public class InterestCalculatorTest {
 
 	private void run() {
 
-		//InterestCalculatorFrame frame = new InterestCalculatorFrame();
-		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//frame.setSize(400, 200);
-		//frame.setVisible(true);
+        m_startAmount = InputCreator.askForPositiveDecimalNumber("What is your start amount?", "Start amount");
+        m_interest = InputCreator.askForPositiveDecimalNumber("What is the rate of interest per period?", "Rate of interest");
+        m_periods = InputCreator.askForPositiveInteger( "How many periods would you like to calculate?", "Number of periods");
 
-		doYourJob();
+        InterestCalculator interestCalculator = new InterestCalculator();
+        interestCalculator.setPrincipalAmount(m_startAmount);
+        interestCalculator.setRateOfInterest(m_interest);
+        interestCalculator.setPeriods(m_periods);
+        StringBuilder sb = getResultMessage();
+        sb.append(DecimalFormat.getCurrencyInstance().format(interestCalculator.getTotalAmount()));
+        JOptionPane.showMessageDialog(null, sb.toString(), "Total amount", JOptionPane.INFORMATION_MESSAGE);
+
 	}
 
-	private void doYourJob() {
-		BigDecimal startAmount = getStartAmount();
-		BigDecimal interest = getInterest();
-		int periods = getPeriods();
+    private StringBuilder getResultMessage() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("With a start amount of ");
+        sb.append(DecimalFormat.getCurrencyInstance().format(m_startAmount));
+        sb.append(" and an interest of ");
+        NumberFormat percentInstance = DecimalFormat.getPercentInstance();
+        percentInstance.setMaximumFractionDigits(m_interest.scale());
+        sb.append(percentInstance.format(m_interest));
+        sb.append(" for ");
+        sb.append(m_periods);
+        sb.append(" periods, the total accrued amount will be: ");
+        return sb;
+    }
 
-		InterestCalculator interestCalculator = new InterestCalculator();
-		interestCalculator.setPrincipalAmount(startAmount);
-		interestCalculator.setRateOfInterest(interest);
-		interestCalculator.setPeriods(periods);
-		JOptionPane.showMessageDialog(null, new String("The total accrued amount will be: " + interestCalculator.getTotalAmount()), "Total amount", JOptionPane.INFORMATION_MESSAGE);
-	}
-
-	private int getPeriods() {
-		final String periodsAnswer = JOptionPane.showInputDialog(null, "How many periods would you like to calculate?", "Number of periods", JOptionPane.QUESTION_MESSAGE);
-		int periods = Integer.valueOf(periodsAnswer).intValue();
-		return periods;
-	}
-
-	private BigDecimal getInterest() {
-		final String interestAnswer = JOptionPane.showInputDialog(null, "What is the rate of interest per period?", "Rate of interest", JOptionPane.QUESTION_MESSAGE);
-		BigDecimal interest = new BigDecimal(interestAnswer);
-		return interest;
-	}
-
-	private BigDecimal getStartAmount() {
-		final String startAmountAnswer = JOptionPane.showInputDialog(null, "What is your start amount?", "Start amount", JOptionPane.QUESTION_MESSAGE);
-		BigDecimal startAmount = new BigDecimal(startAmountAnswer, MathContext.DECIMAL64);
-		return startAmount;
-	}
 }
