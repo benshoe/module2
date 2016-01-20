@@ -27,7 +27,7 @@ public class InterestCalculator {
         if(getRateOfInterest() == null || getPrincipalAmount() == null) {
             return null;
         }
-        return getPrincipalAmount().add(getPrincipalAmount().multiply(getRateOfInterest()).multiply(new BigDecimal(getPeriods())));
+        return getPrincipalAmount().add(getPrincipalAmount().multiply(getRateOfInterest()).multiply(new BigDecimal(getPeriods()))).setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
     public BigDecimal getRateOfInterest() {
