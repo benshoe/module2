@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.UIManager.*;
 import java.math.*;
 
 /**
@@ -7,8 +8,24 @@ import java.math.*;
 public class InterestCalculatorTest {
 
 	public static void main(String[] args) {
+		setLookAndFeel();
+
 		InterestCalculatorTest interestCalculatorTest = new InterestCalculatorTest();
 		interestCalculatorTest.run();
+	}
+
+	private static void setLookAndFeel() {
+		final LookAndFeelInfo[] installedLookAndFeels = UIManager.getInstalledLookAndFeels();
+		for(int i = installedLookAndFeels.length - 1; i >=0; i--) {
+			if(installedLookAndFeels[i].getName().equals("Nimbus")) {
+				try {
+					UIManager.setLookAndFeel(installedLookAndFeels[i].getClassName());
+				} catch(Exception e) {
+					e.printStackTrace();
+					System.out.println("Too bad, it is not possible to set the LookAndFeel to Nimbus. We'll use the default then.");
+				}
+			}
+		}
 	}
 
 	private void run() {
