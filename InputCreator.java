@@ -2,10 +2,20 @@ import javax.swing.*;
 import java.math.BigDecimal;
 
 /**
+ * This class contains two methods to easily create dialog boxes with two different inputs
+ *
+ * One dialog box asks for a positive integer and the other for a positive decimal number where
+ * the number of decimals can be set.
+ *
+ * When the need arises for more input dialogs or with different settings, the class may be altered
+ * to support an easier use of the class with less parameters. Maybe the Builder Pattern will be used then.
+ *
  * @author Ben Schoen<ben.schoen@online.liverpool.ac.uk>
  * @since 20 January 2016
  */
 public class InputCreator {
+
+    public static final String NEGATIVE_NUMBER_ENTERED = "You entered a negative number.";
 
     /**
      * An input dialog is shown which asks for a whole number
@@ -22,11 +32,11 @@ public class InputCreator {
         try {
             int i = Integer.parseInt(answer);
             if(i < 0) {
-                throw new NumberFormatException();
+                throw new NumberFormatException(NEGATIVE_NUMBER_ENTERED);
             }
             return i;
         } catch (NumberFormatException e) {
-            message = "The number you entered is not valid.\nPlease, try again entering a positive valid whole number.";
+            message = getExtraInfo(e) + "Please, try again entering a positive whole number.";
             return askForPositiveInteger(message, title); // I recursively call this same method until a valid number is entered or the user quits the program
         }
     }
@@ -40,19 +50,23 @@ public class InputCreator {
         try {
             BigDecimal bigDecimal = new BigDecimal(answer);
             if(bigDecimal.signum() == -1) { // If the number is negative we throw an exception
-                throw new NumberFormatException("The number is negative");
+                throw new NumberFormatException(NEGATIVE_NUMBER_ENTERED);
             }
             if(numberOfDecimals != null && bigDecimal.scale() > numberOfDecimals) {
-                throw new NumberFormatException("You entered " + bigDecimal.scale() + " decimals while the maximum is " + numberOfDecimals);
+                throw new NumberFormatException("You entered " + bigDecimal.scale() + " decimals while the maximum is " + numberOfDecimals + ".");
             }
             return bigDecimal;
         } catch (NumberFormatException e) {
-            if(e.getMessage() != null) {
-                message = e.getMessage();
-            }
-            message += "\nPlease, try again entering a valid positive decimal number.";
-            return askForPositiveDecimalNumber(message, title, numberOfDecimals); // I recursively call this same method until a valid number is entered or the user quits the program
+            message = getExtraInfo(e) + "Please, try again entering a positive decimal number.";
+            return askForPositiveDecimalNumber(message, title, numberOfDecimals);
         }
+    }
+
+    private static String getExtraInfo(NumberFormatException e) {
+        if(e.getMessage() != null && !e.getMessage().contains("For input string")) { // I could have created a new Exception type, but didn't see the value of it now
+            return e.getMessage() + "\n";
+        }
+        return "The number you entered is not valid.\n";
     }
 
     private static void confirmQuit() {

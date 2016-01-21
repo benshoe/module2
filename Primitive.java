@@ -13,5 +13,10 @@ public class Primitive {
 		}
 		System.out.println(sum);
 		System.out.println("it took: " + (nanoTime() - ts)/1_000_000 + " ms");
+
+		String s = "hallo";
+		s = null;
+		System.out.println("s.length() = " + s);
+
 	}
 }
