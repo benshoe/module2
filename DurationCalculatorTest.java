@@ -18,6 +18,10 @@ public class DurationCalculatorTest {
         assertEquals(durationCalculator.getHoursDuration(), 0);
         assertEquals(durationCalculator.getMinutesDuration(), 30);
 
+        durationCalculator = new DurationCalculator("9:15", "9:45");
+        assertEquals(durationCalculator.getHoursDuration(), 0);
+        assertEquals(durationCalculator.getMinutesDuration(), 30);
+
         durationCalculator = new DurationCalculator("09:25", "09:45");
         assertEquals(durationCalculator.getHoursDuration(), 0);
         assertEquals(durationCalculator.getMinutesDuration(), 20);
@@ -37,6 +41,14 @@ public class DurationCalculatorTest {
         durationCalculator = new DurationCalculator("09:15", "10:14");
         assertEquals(durationCalculator.getHoursDuration(), 0);
         assertEquals(durationCalculator.getMinutesDuration(), 59);
+
+        durationCalculator = new DurationCalculator("09:59", "10:01");
+        assertEquals(durationCalculator.getHoursDuration(), 0);
+        assertEquals(durationCalculator.getMinutesDuration(), 2);
+
+        durationCalculator = new DurationCalculator("09:59", "09:59");
+        assertEquals(durationCalculator.getHoursDuration(), 0);
+        assertEquals(durationCalculator.getMinutesDuration(), 0);
 
     }
 }
