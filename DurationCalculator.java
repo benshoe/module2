@@ -1,24 +1,19 @@
 /**
  * Created by ben on 23-01-16.
  */
-public class DurationCalculator {
+public final class DurationCalculator {
 
-    private int hours;
-    private int minutes;
+//    private int minutes;
 
-    public DurationCalculator(String startTime, String endTime) {
-        calculateDuration(startTime, endTime);
+    private DurationCalculator() {
+//        calculateDuration(startTime, endTime);
     }
 
-    public int getHoursDuration() {
-        return hours;
-    }
+//    public int getMinutesDuration() {
+//        return minutes;
+//    }
 
-    public int getMinutesDuration() {
-        return minutes;
-    }
-
-    private void calculateDuration(String startTime, String endTime) {
+    public static int calculateDuration(String startTime, String endTime) {
         String[] startHoursMinutes = startTime.split(":");
         if(startHoursMinutes.length != 2) {
             throw new IllegalArgumentException("The start time is not in the format hh:mm");
@@ -36,8 +31,10 @@ public class DurationCalculator {
 
         int totalMinutes = endMinutes - startMinutes;
         int totalHours = endHours - startHours;
-        hours = totalMinutes < 0 ? totalHours - 1 : totalHours;
-        minutes = totalMinutes < 0 ? 60 + totalMinutes : totalMinutes;
+        int hours = totalMinutes < 0 ? totalHours - 1 : totalHours;
+        int minutes = hours * 60;
+        minutes += totalMinutes < 0 ? 60 + totalMinutes : totalMinutes;
+        return minutes;
     }
 
 }

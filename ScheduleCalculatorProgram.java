@@ -39,17 +39,16 @@ public class ScheduleCalculatorProgram {
         ScheduleCalculator scheduleCalculator = new ScheduleCalculator();
         scheduleCalculator.calculateSchedule(answer);
 
-        String napMessage = scheduleCalculator.getLongestNapStartTimeMessage();
-        String freeTimeMessage = scheduleCalculator.getTotalFreeTimeMessage();
+        String napMessage = scheduleCalculator.getNapStartTime();
+        int totalFreeTime = scheduleCalculator.getTotalFreeTime();
+        String freeTimeMessage = getHoursAndMinutes(totalFreeTime);
         message = napMessage + "\n\n" + freeTimeMessage;
         JOptionPane.showMessageDialog(null, message, "Your schedule for the day", JOptionPane.INFORMATION_MESSAGE);
     }
 
-//    private String createFreeTimeMessage(String totalFreeTime, String napStartTime) {
-//        return
-//    }
-//
-//    private String createNapMessage(String longestNapStartTime, String longestNapDuration) {
-//        return
-//    }
+    private String getHoursAndMinutes(int totalFreeTime) {
+        int hours = totalFreeTime / 60;
+        int minutes = totalFreeTime % 60;
+        return hours == 0 ? minutes + " minutes" : hours + " hours and " + minutes + " minutes";
+    }
 }
