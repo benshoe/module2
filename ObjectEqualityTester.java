@@ -1,5 +1,6 @@
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Arrays;
 
 /**
  * Created by ben on 21-01-16.
@@ -55,6 +56,7 @@ public class ObjectEqualityTester {
 
         System.out.println("Boolean.TRUE == Boolean.TRUE: " + (Boolean.TRUE == Boolean.TRUE));
         Dog dog = new Dog();
+        dog.setBreed(Breed.BORDER_COLLY);
         Breed breed = dog.getBreed();
         switch (breed) {
             case BORDER_COLLY:
@@ -69,6 +71,20 @@ public class ObjectEqualityTester {
             default:
                 throw new IllegalArgumentException("This dog breed is unknown: " + breed);
         }
+
+        compareArrays();
+    }
+
+    private static void compareArrays() {
+        String[] array1 = {"1", "2", "3"};
+        String[] array2 = {"1", "2", "3"};
+
+        String[] array3 = {"1", "2", "3"};
+        String[] array4 = {"2", "1", "1"};
+
+        System.out.println("array1 == array2: " + (array1 == array2));
+        System.out.println("array1.equals(array2): " + (array1.equals(array2)));
+        System.out.println("array1.equals(array2): " + (Arrays.equals(array1, array2)));
     }
 }
 

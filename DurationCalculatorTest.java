@@ -4,7 +4,10 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Created by ben on 23-01-16.
+ * Unit tests for DurationCalculator
+ *
+ * @author Ben Schoen<ben.schoen@online.liverpool.ac.uk>
+ * @since 24 January 2016
  */
 public class DurationCalculatorTest {
 
@@ -19,6 +22,6 @@ public class DurationCalculatorTest {
         Assert.assertEquals(DurationCalculator.calculateDuration("09:15", "10:14"), 59);
         Assert.assertEquals(DurationCalculator.calculateDuration("09:59", "10:01"), 2);
         Assert.assertEquals(DurationCalculator.calculateDuration("09:59", "09:59"), 0);
-
+        Assert.assertEquals(DurationCalculator.calculateDuration("9:59", "9:59"), 0);
     }
 }

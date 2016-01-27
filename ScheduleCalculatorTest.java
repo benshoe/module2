@@ -17,7 +17,7 @@ public class ScheduleCalculatorTest {
 
         calculator = new ScheduleCalculator();
         calculator.calculateSchedule("09:00 17:00 'Very busy'");
-        Assert.assertEquals("none", calculator.getNapStartTime());
+        Assert.assertEquals(null, calculator.getNapStartTime());
         Assert.assertEquals(0, calculator.getTotalFreeTime());
         Assert.assertEquals(0, calculator.getNapDuration());
     }
