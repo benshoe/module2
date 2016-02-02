@@ -34,5 +34,32 @@ public class SwitchTester {
         }
         System.out.println("raceclass = " + raceclass);
 
+
+        if (raceclass == 'A') {
+            System.out.println("Excellent");
+            System.out.println("Very High");
+            System.out.println("Good");
+            System.out.println("Average");
+            System.out.println("Failed");
+        } else if (raceclass == 'B') {
+            System.out.println("Very High");
+            System.out.println("Good");
+            System.out.println("Average");
+            System.out.println("Failed");
+        } else if (raceclass == 'C') {
+            System.out.println("Good");
+            System.out.println("Average");
+            System.out.println("Failed");
+        } else if (raceclass == 'D') {
+            System.out.println("Average");
+            System.out.println("Failed");
+        } else {
+            System.out.println("Failed");
+        }
+
     }
+
+
+
+
 }
