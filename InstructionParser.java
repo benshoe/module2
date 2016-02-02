@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -6,42 +8,29 @@ import java.util.regex.Pattern;
  */
 public class InstructionParser {
 
+    public static final String PATTERN = "\\s*(\\d{3})\\s*";
     private String[] m_instructions;
 
     public boolean parse(String input) {
-        if(input == null) {
+        if(input == null || "".equals(input)) {
             return false;
         }
-        if(!input.matches("(\\s*(\\d{3})\\s*)*")) {
-            System.out.println("faulty = " + input);
+        if(!input.matches("(" + PATTERN + ")*")) {
             return false;
-        } else {
-            System.out.println("good!! = " + input);
         }
-        Pattern p = Pattern.compile("(\\s*(\\d{3})\\s*)*");
-        Matcher m = p.matcher(input);
-        m_instructions = new String[10];
-        int i = 0;
-        while (m.find()) {
-            m_instructions[i++] = m.group();
-            System.out.println("m.group() = " + m.group());
-        }
+        extractInstructions(input);
         return true;
-
-//        input = input.trim();
-//        String[] splitInput = input.split(" ");
-//        String[] instructions =  new String[splitInput.length];
-////        for (int i = 0; i < splitInput.length; i++) {
-////            try {
-////                instructions[i] = Integer.parseInt(splitInput[i]);
-////            } catch (NumberFormatException nfe) {
-////                return false;
-////            }
-////        }
-//        m_instructions = instructions;
-//        return true;
     }
 
+    private void extractInstructions(String input) {
+        Pattern p = Pattern.compile(PATTERN);
+        Matcher m = p.matcher(input);
+        List<String> instructions = new ArrayList<>();
+        while (m.find()) {
+            instructions.add(m.group().trim());
+        }
+        m_instructions = instructions.toArray(new String[instructions.size()]);
+    }
 
     public String[] getInstructions() {
         return m_instructions;
