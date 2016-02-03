@@ -20,6 +20,9 @@ public class SmallComputer {
     }
 
     private void stopComputer() {
+        System.out.println("\n\nThank you for using this small computer! I hope you enjoyed it.\n" +
+                "Until next time!\n\n" +
+                "Best regards,\n\nBen Schoen");
 
     }
 
@@ -35,19 +38,17 @@ public class SmallComputer {
     private void askUserForInput() {
         Scanner input = new Scanner(System.in);
         while(true) {
+            System.out.println("\nEnter instruction: ");
             if(m_processor.getResult() == SmallProcessor.Result.SUCCESS) {
-                System.out.println("Enter an instruction: ");
                 String instruction = input.next();
                 if (m_processor.verifyInput(instruction)) {
                     m_processor.processInput(instruction);
                     printRegisters();
                 }
-            }
-            if(m_processor.getResult() == SmallProcessor.Result.ERROR) {
+            } else if(m_processor.getResult() == SmallProcessor.Result.ERROR) {
                 System.out.println("Error: " + m_processor.getMessage());
                 m_processor.setResult(SmallProcessor.Result.SUCCESS);
-            }
-            if(m_processor.getResult() == SmallProcessor.Result.STOPPED) {
+            } else if(m_processor.getResult() == SmallProcessor.Result.STOPPED) {
                 break;
             }
         }
