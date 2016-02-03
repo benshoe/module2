@@ -1,102 +1,64 @@
+import javax.swing.*;
+import java.util.Scanner;
+
 /**
- * Created by ben on 02-02-16.
+ * Created by ben on 03-02-16.
  */
 public class SmallComputer {
 
-    public static final int CHAR_TO_INT = 48;
-    private final int[] m_registers;
-    private String m_message;
+    private SmallProcessor m_processor = new SmallProcessor();
 
-    public enum Result {
-        SUCCESS, ERROR, STOPPED
+    public static void main(String[] args) {
+        SmallComputer smallComputer = new SmallComputer();
+        smallComputer.startComputer();
     }
 
-    private Result m_result = Result.SUCCESS;
-
-    public SmallComputer() {
-        m_registers = new int[10];
+    private void startComputer() {
+        displayInformation();
+        askUserForInput();
+        stopComputer();
     }
 
-    public void processInput(String input) {
-        int firstChar = input.charAt(0) - CHAR_TO_INT;
-        int secondChar = input.charAt(1) - CHAR_TO_INT;
-        int thirdChar = input.charAt(2) - CHAR_TO_INT;
+    private void stopComputer() {
 
-        switch (firstChar) {
-            case 0:
-                m_result = Result.ERROR;
-                m_message = "Instruction code '" + input + "' is not supported by the system";
-                break;
-            case 1:
-                m_result = Result.STOPPED;
-                stopProgram();
-                break;
-            case 2:
-                assign(secondChar, thirdChar);
-                break;
-            case 3:
-                plus(secondChar, thirdChar);
-                break;
-            case 4:
-                multiply(secondChar, thirdChar);
-                break;
-            case 5:
-                divide(secondChar, thirdChar);
-                break;
-            case 6:
-                assignRegister(secondChar, thirdChar);
-                break;
-            case 7:
-                break;
-            case 8:
-                break;
-            case 9:
-                break;
-            default:
-                throw new IllegalArgumentException("This input string cannot be processed: " + input);
+    }
 
+    private void displayInformation() {
+        System.out.println("Welcome to this small computer. By entering three digit values you are\n" +
+                "able to set and manipulate 10 registers. After each instruction I will display\n" +
+                "the value of each register.\n\n" +
+                "Instructions that are invalid will not affect the registers (e.g. dividing by 0).\n" +
+                "An instruction starting with a 0 will result in an error.\n" +
+                "If you would like to quit eht program, enter a 3-digit number starting with a '1'.");
+    }
 
+    private void askUserForInput() {
+        Scanner input = new Scanner(System.in);
+        while(true) {
+            if(m_processor.getResult() == SmallProcessor.Result.SUCCESS) {
+                System.out.println("Enter an instruction: ");
+                String instruction = input.next();
+                if (m_processor.verifyInput(instruction)) {
+                    m_processor.processInput(instruction);
+                    printRegisters();
+                }
+            }
+            if(m_processor.getResult() == SmallProcessor.Result.ERROR) {
+                System.out.println("Error: " + m_processor.getMessage());
+                m_processor.setResult(SmallProcessor.Result.SUCCESS);
+            }
+            if(m_processor.getResult() == SmallProcessor.Result.STOPPED) {
+                break;
+            }
         }
     }
 
-    private void divide(int secondChar, int thirdChar) {
-        m_registers[secondChar] = m_registers[secondChar] / thirdChar;
-    }
-
-    private void assignRegister(int secondChar, int thirdChar) {
-        m_registers[secondChar] = m_registers[thirdChar];
-    }
-
-    private void multiply(int secondChar, int thirdChar) {
-        m_registers[secondChar] = m_registers[secondChar] * thirdChar;
-    }
-
-    private void plus(int secondChar, int thirdChar) {
-        m_registers[secondChar] = m_registers[secondChar] + thirdChar;
-    }
-
-    private void assign(int secondChar, int thirdChar) {
-        m_registers[secondChar] = thirdChar;
-    }
-
-    private void stopProgram() {
-    }
-
-    public void processInput(String[] input) {
-        for (int i = 0; i < input.length; i++) {
-            processInput(input[i]);
+    private void printRegisters() {
+        for(int i = 0; i < m_processor.getRegisters().length; i ++) {
+            System.out.print( i + ": ");
+            System.out.printf("%03d\t", m_processor.getRegisters()[i]);
         }
+        System.out.println();
     }
 
-    public String getMessage() {
-        return m_message;
-    }
-
-    public Result getResult() {
-        return m_result;
-    }
-
-    public int[] getRegisters() {
-        return m_registers;
-    }
 }

@@ -11,11 +11,15 @@ public class InstructionParser {
     public static final String PATTERN = "\\s*(\\d{3})\\s*";
     private String[] m_instructions;
 
+    private String m_message;
+
     public boolean parse(String input) {
         if(input == null || "".equals(input)) {
+            setMessage("The instruction is empty");
             return false;
         }
         if(!input.matches("(" + PATTERN + ")*")) {
+            setMessage("The instruction is not in groups of 3 digits");
             return false;
         }
         extractInstructions(input);
@@ -34,5 +38,13 @@ public class InstructionParser {
 
     public String[] getInstructions() {
         return m_instructions;
+    }
+
+    public void setMessage(String message) {
+        m_message = message;
+    }
+
+    public String getMessage() {
+        return m_message;
     }
 }
