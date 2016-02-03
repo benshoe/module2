@@ -38,10 +38,13 @@ public class SmallComputer {
                 plus(secondChar, thirdChar);
                 break;
             case 4:
+                multiply(secondChar, thirdChar);
                 break;
             case 5:
+                divide(secondChar, thirdChar);
                 break;
             case 6:
+                assignRegister(secondChar, thirdChar);
                 break;
             case 7:
                 break;
@@ -54,6 +57,18 @@ public class SmallComputer {
 
 
         }
+    }
+
+    private void divide(int secondChar, int thirdChar) {
+        m_registers[secondChar] = m_registers[secondChar] / thirdChar;
+    }
+
+    private void assignRegister(int secondChar, int thirdChar) {
+        m_registers[secondChar] = m_registers[thirdChar];
+    }
+
+    private void multiply(int secondChar, int thirdChar) {
+        m_registers[secondChar] = m_registers[secondChar] * thirdChar;
     }
 
     private void plus(int secondChar, int thirdChar) {
