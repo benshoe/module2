@@ -22,14 +22,5 @@ public class InstructionParserTest {
         assertFalse(parser.parse("123 45"));
         assertTrue(parser.parse("123 456"));
         assertFalse(parser.parse("123 1 456"));
-
-        String[] array = {"123"};
-//        assertArrayEquals(array, parser.getInstructions());
-
-        assertTrue(parser.parse("123 456 789"));
-        String[] array2 = {"123", "456", "789"};
-        assertArrayEquals(array2, parser.getInstructions());
-
-        assertTrue(parser.parse(" 123  456 789"));
     }
 }
