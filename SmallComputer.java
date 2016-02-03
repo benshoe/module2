@@ -33,10 +33,14 @@ public class SmallComputer {
 
     private void startComputer() {
         displayInformation();
-        while(m_processor.getResult() != SmallProcessor.Result.STOPPED) {
-            askUserForInput();
-        }
-        stopComputer();
+        SmallComputerTerminal terminal = new SmallComputerTerminal();
+        terminal.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        terminal.setSize(260, 180);
+        terminal.setVisible(true);
+//        while(m_processor.getResult() != SmallProcessor.Result.STOPPED) {
+//            askUserForInput();
+//        }
+//        stopComputer();
     }
 
     private void stopComputer() {
