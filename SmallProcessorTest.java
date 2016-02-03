@@ -202,6 +202,7 @@ public class SmallProcessorTest {
         assertEquals(SmallProcessor.Result.ERROR, smallProcessor.getResult());
         result = new int[] {0, 0, 0, 0, 0, 0, 0, 1, 0, 0};
         assertArrayEquals(result, registers);
+        assertEquals("We cannot divide by 0", smallProcessor.getMessage());
     }
 
     @Test
@@ -210,4 +211,5 @@ public class SmallProcessorTest {
         smallProcessor.processInput("065");
         assertEquals("Instruction code '065' is not supported by the system", smallProcessor.getMessage());
     }
+
 }
