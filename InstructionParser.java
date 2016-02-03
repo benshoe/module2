@@ -19,7 +19,7 @@ public class InstructionParser {
             return false;
         }
         if(!input.matches("(" + PATTERN + ")*")) {
-            setMessage("The instruction is not in groups of 3 digits");
+            setMessage("Error processing " + input + ". The instruction is not in groups of 3 digits");
             return false;
         }
         extractInstructions(input);

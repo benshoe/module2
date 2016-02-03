@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 /**
  * Created by ben on 02-02-16.
  */
@@ -7,7 +5,6 @@ public class SmallProcessor {
 
     private InstructionParser m_parser = new InstructionParser();
 
-    public static final int CHAR_TO_INT = 48; // To convert from char to the real int value we subtract 48
     public static final int THOUSAND = 1000; // this is the modulus used to convert values
     private final int[] m_registers = new int[10]; // this holds the 10 registers
     private String m_message; // here we can store a message with the result
@@ -32,9 +29,9 @@ public class SmallProcessor {
     private Result m_result = Result.SUCCESS;
 
     public void processInput(String input) {
-        int firstChar = input.charAt(0) - CHAR_TO_INT;
-        int secondChar = input.charAt(1) - CHAR_TO_INT;
-        int thirdChar = input.charAt(2) - CHAR_TO_INT;
+        int firstChar = Integer.parseInt(input.substring(0, 1));
+        int secondChar = Integer.parseInt(input.substring(1, 2));
+        int thirdChar = Integer.parseInt(input.substring(2, 3));
 
         switch (firstChar) {
             case 0:
@@ -43,10 +40,9 @@ public class SmallProcessor {
                 break;
             case 1:
                 m_result = Result.STOPPED;
-                stopProgram();
                 break;
             case 2:
-                assign(secondChar, thirdChar);
+                assignValue(secondChar, thirdChar);
                 break;
             case 3:
                 plus(secondChar, thirdChar);
@@ -62,7 +58,7 @@ public class SmallProcessor {
                 }
                 break;
             case 6:
-                assignRegister(secondChar, thirdChar);
+                assignRegisterValue(secondChar, thirdChar);
                 break;
             case 7:
                 addRegisterValue(secondChar, thirdChar);
@@ -94,7 +90,7 @@ public class SmallProcessor {
         m_registers[secondChar] = (m_registers[secondChar] / thirdChar) % THOUSAND;
     }
 
-    private void assignRegister(int secondChar, int thirdChar) {
+    private void assignRegisterValue(int secondChar, int thirdChar) {
         m_registers[secondChar] = m_registers[thirdChar];
     }
 
@@ -106,11 +102,8 @@ public class SmallProcessor {
         m_registers[secondChar] = (m_registers[secondChar] + thirdChar) % THOUSAND;
     }
 
-    private void assign(int secondChar, int thirdChar) {
+    private void assignValue(int secondChar, int thirdChar) {
         m_registers[secondChar] = thirdChar;
-    }
-
-    private void stopProgram() {
     }
 
     public String getMessage() {
