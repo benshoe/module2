@@ -150,7 +150,7 @@ class UpdateAnimalButtonListener implements ActionListener {
  *   Animal: abstract super class
  */
 
-abstract class Animal implements Moveable {
+abstract class Animal {
     // does each animal have it's own JFrame "display logic"?
     //protected String clade; // https://en.wikipedia.org/wiki/Clade ??
     private String[] species = {"undefined","Mamal","Bird","Reptile"};
@@ -162,6 +162,10 @@ abstract class Animal implements Moveable {
         INSECT    ("Insect");
 
         private /* ???? */ String speciesName;
+
+        String getSpeciesName() {
+            return speciesName;
+        }
 
         Species(String name) {
             speciesName = name;
@@ -190,19 +194,15 @@ abstract class Animal implements Moveable {
         name = n;
     }
 
-    public String getName(String n) {
+    public String getName() {
         return name;
     }
 
     public String toString() {
         // this will be used in animal list view!
-        return animalSpecies+": "+name;
+        return animalSpecies+": "+name + " " + animalSpecies.getSpeciesName();
     }
 
-    @Override
-    public void move() {
-
-    }
 }
 
 /*
@@ -236,6 +236,10 @@ class Reptile extends Animal {
     private int footCount;
     public Reptile() {
         super(Animal.Species.REPTILE);
+    }
+
+    public void move() {
+        System.out.println("I'm a reptile");
     }
 }
 
